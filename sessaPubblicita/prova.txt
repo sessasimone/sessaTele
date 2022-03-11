@@ -1,0 +1,2 @@
+{"ok":true,"result":[{"update_id":806971432,
+"message":{"message_id":7,"from":{"id":571591485,"is_bot":false,"first_name":"Edo","language_code":"en"},"chat":{"id":571591485,"first_name":"Edo","type":"private"},"date":1646843073,"text":"?"}}]}
