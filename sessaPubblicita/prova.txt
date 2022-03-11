@@ -1,2 +1,3 @@
-{"ok":true,"result":[{"update_id":806971432,
-"message":{"message_id":7,"from":{"id":571591485,"is_bot":false,"first_name":"Edo","language_code":"en"},"chat":{"id":571591485,"first_name":"Edo","type":"private"},"date":1646843073,"text":"?"}}]}
+{"ok":true,"result":[{"update_id":941459355,
+"message":{"message_id":1,"from":{"id":846775032,"is_bot":false,"first_name":"Simone","last_name":"Sessa","language_code":"it"},"chat":{"id":846775032,"first_name":"Simone","last_name":"Sessa","type":"private"},"date":1647001899,"text":"/start","entities":[{"offset":0,"length":6,"type":"bot_command"}]}},{"update_id":941459356,
+"message":{"message_id":4,"from":{"id":846775032,"is_bot":false,"first_name":"Simone","last_name":"Sessa","language_code":"it"},"chat":{"id":846775032,"first_name":"Simone","last_name":"Sessa","type":"private"},"date":1647001939,"text":"Dfjf"}}]}

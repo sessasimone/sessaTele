@@ -21,7 +21,7 @@ public class sessaPubblicita {
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
         GestisciMetodi gm = new GestisciMetodi();
-        
+      
         if(gm.mySendMessageAll("messaggio con encode")){
             System.out.println("messaggio inviato correttamente");
         } else {
