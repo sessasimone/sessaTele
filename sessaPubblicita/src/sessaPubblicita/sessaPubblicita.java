@@ -13,7 +13,7 @@ import telegramAPI.Test;
  *
  * @author sessa
  */
-public class sessaPubblicita {
+public class sessaPubblicita { //commenti
 
     /**
      * @param args the command line arguments
