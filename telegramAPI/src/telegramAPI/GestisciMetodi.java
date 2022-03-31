@@ -81,12 +81,20 @@ public class GestisciMetodi {
                 }
                 String[] comando = text.split(" ");
                 if("/citta".equals(comando[0])){
-                    
-                    JSONArray dati=coordinate(comando[1]);
+                    String città = "";
+                    for(int j = 1; j < comando.length; j++){
+                        if(j == comando.length - 1){
+                            città += comando[j];
+                        } else {
+                            città += comando[j] + '+';
+                        }
+                    }
+                    System.out.println(città);
+                    JSONArray dati=coordinate(città);
                     JSONObject appoggio2 = new JSONObject(dati.get(0).toString());
                     String lat=appoggio2.getString("lat");
                     String longhi=appoggio2.getString("lon");
-                    ScriviSuCSV(ID,comando[1], lat, longhi);
+                    ScriviSuCSV(ID,città, lat, longhi);
                 }
                 //controllo che l'id non sia già stato inserito, se manca lo aggiungo alla lista
                 if (!ListaID.contains(ID.toString())) {

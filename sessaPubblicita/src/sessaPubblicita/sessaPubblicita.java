@@ -23,7 +23,6 @@ public class sessaPubblicita { //commenti
         // TODO code application logic here
         GestisciMetodi gm = new GestisciMetodi();
       while(true){
-          gm.coordinate("arosio");
          if(gm.mySendMessageAll("messaggio con encode")){
             System.out.println("messaggio inviato correttamente");
         } else {
