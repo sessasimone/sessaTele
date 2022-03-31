@@ -89,7 +89,7 @@ public class GestisciMetodi {
                             città += comando[j] + '+';
                         }
                     }
-                    System.out.println(città);
+                    
                     JSONArray dati=coordinate(città);
                     JSONObject appoggio2 = new JSONObject(dati.get(0).toString());
                     String lat=appoggio2.getString("lat");
