@@ -6,8 +6,9 @@
 package sessaPubblicita;
 
 import java.io.IOException;
+import static java.lang.Thread.sleep;
 import telegramAPI.GestisciMetodi;
-import telegramAPI.Test;
+
 
 /**
  *
@@ -18,15 +19,19 @@ public class sessaPubblicita { //commenti
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         // TODO code application logic here
         GestisciMetodi gm = new GestisciMetodi();
-      
-        if(gm.mySendMessageAll("messaggio con encode")){
+      while(true){
+          gm.coordinate("arosio");
+         if(gm.mySendMessageAll("messaggio con encode")){
             System.out.println("messaggio inviato correttamente");
         } else {
             System.out.println("errore nel invio del messaggio");
-        }
+        } 
+         sleep(1000);
+      }
+        
     }
     
 }

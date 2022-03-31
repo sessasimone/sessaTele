@@ -26,6 +26,7 @@ import org.json.*;
 public class GestisciMetodi {
 
     private String urlBase = "https://api.telegram.org/bot5280783436:AAH0cU9fi7xf6B0JF7Q-b4tD7BsXI8fQJ_Q/";
+    
     private JSONArray VetMessaggi;
 
     public void myGetUpdate() throws MalformedURLException, IOException {
@@ -39,15 +40,17 @@ public class GestisciMetodi {
         JSONObject obj = new JSONObject(Response);
         //VetMesssaggi contiene tutti i messaggi inviati al bot
         VetMessaggi = obj.getJSONArray("result");
+        System.out.println(VetMessaggi);
     }
 
     public boolean mySendMessageAll(String msg) throws MalformedURLException, IOException {
         List<String> ListaID = myFindAllId();
-        String urlParziale = urlBase + "sendMessage";
+        String urlParziale;
         boolean Sent = false;
 
         for (int i = 0; i < ListaID.size(); i++) {
             //costruisco i vari URL
+            urlParziale = urlBase + "sendMessage";
             urlParziale += "?chat_id=" + ListaID.get(i) + "&text=" + URLEncoder.encode(msg, StandardCharsets.UTF_8);
             System.out.println(urlParziale);
             URL url = new URL(urlParziale);
@@ -67,13 +70,28 @@ public class GestisciMetodi {
 
         for (int i = 0; i < VetMessaggi.length(); i++) {
             JSONObject appoggio = new JSONObject(VetMessaggi.get(i).toString());
-            JSONObject messaggio = appoggio.getJSONObject("message");
-            JSONObject chat = messaggio.getJSONObject("chat");
-            String ID = Integer.toString(chat.getInt("id"));
-            
-            //controllo che l'id non sia già stato inserito, se manca lo aggiungo alla lista
-            if (!ListaID.contains(ID.toString())) {
-                ListaID.add(ID);
+            if(appoggio.has("message")){
+                JSONObject messaggio = appoggio.getJSONObject("message");
+                JSONObject chat = messaggio.getJSONObject("chat");
+                String ID = Integer.toString(chat.getInt("id"));
+                
+                String text = "";
+                if(!messaggio.has("photo")){
+                    text = messaggio.get("text").toString();
+                }
+                String[] comando = text.split(" ");
+                if("/citta".equals(comando[0])){
+                    
+                    JSONArray dati=coordinate(comando[1]);
+                    JSONObject appoggio2 = new JSONObject(dati.get(0).toString());
+                    String lat=appoggio2.getString("lat");
+                    String longhi=appoggio2.getString("lon");
+                    ScriviSuCSV(ID,comando[1], lat, longhi);
+                }
+                //controllo che l'id non sia già stato inserito, se manca lo aggiungo alla lista
+                if (!ListaID.contains(ID.toString())) {
+                    ListaID.add(ID);
+                }
             }
         }
         return ListaID;
@@ -106,5 +124,41 @@ public class GestisciMetodi {
         }
 
         return jsString;
+    }
+    
+    public JSONArray coordinate (String nome) throws IOException{
+        String urlCoordinate="https://nominatim.openstreetmap.org/search?format=json";
+        urlCoordinate+="&q="+nome;
+        File fileC=ScriviCoordinate(urlCoordinate);
+        JSONArray coordinate=new JSONArray(LeggiDaFile(fileC));
+ 
+        return coordinate;
+    }
+    
+    private File ScriviCoordinate(String urlParziale) throws MalformedURLException, IOException {
+        URL url = new URL(urlParziale);
+        Scanner sc = new Scanner(url.openStream());
+        sc.useDelimiter("\u001a");
+
+        File file = new File("coordinate.txt");
+        FileWriter fw = new FileWriter(file);
+
+        fw.write(sc.next());
+        fw.flush();
+        fw.close();
+
+        return file;
+    }
+    
+     private File ScriviSuCSV(String idChat,String nome,String lat,String longhi) throws MalformedURLException, IOException {
+        
+        File file = new File("C:\\Users\\sessa\\OneDrive\\Desktop\\tecno\\sessaTele\\latlon.csv");
+        FileWriter fw = new FileWriter(file);
+        String risultato= idChat+";"+nome+";"+lat+";"+longhi;
+        fw.write(risultato);
+        fw.flush();
+        fw.close();
+
+        return file;
     }
 }
