@@ -2,7 +2,7 @@ package telegramAPI;
 
 /**
  *
- * @author rizzi_edoardo
+ * @author sessa
  */
 public class Luogo {
     private double lat, lon; 
